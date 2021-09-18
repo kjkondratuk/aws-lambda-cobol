@@ -1,12 +1,17 @@
 FROM alpine:3.14
 
-ARG COBC_VERSION="${COBC_VERSION}"
+ARG ENV_DIR="${ENV_DIR:-home}"
+ARG COBC_VERSION="${COBC_VERSION:-3.1.2}"
 
-COPY ./gnucobol-${COBC_VERSION}/ /opt/gnucobol-${COBC_VERSION}/
+COPY ./home/gnucobol-${COBC_VERSION}/ /opt/gnucobol-${COBC_VERSION}/
 
 WORKDIR /opt/gnucobol-${COBC_VERSION}
 
-RUN apk add g++ make gmp-dev db-dev ncurses cjson-dev libxml2-dev && ./configure && make && make install
+RUN apk add --update g++ make gmp-dev db-dev ncurses cjson-dev libxml2-dev npm \
+    && ./configure \
+    && make \
+    && make install \
+    && npm install -g cobolget
 
 WORKDIR /root
 
