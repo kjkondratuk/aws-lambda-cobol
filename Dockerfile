@@ -10,4 +10,6 @@ RUN apk add g++ make gmp-dev db-dev ncurses cjson-dev libxml2-dev && ./configure
 
 WORKDIR /root
 
+VOLUME [ "/root" ]
+
 ENTRYPOINT [ "/bin/sh" ]
