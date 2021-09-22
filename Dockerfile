@@ -33,13 +33,6 @@ RUN yum update -y && yum install -y \
     && make \
     && make install
 
-RUN which make \
-    which wget \
-    which zip \
-    which make
-
-RUN ldconfig -p | grep libidn
-
 VOLUME [ "/install" ]
 
 ENTRYPOINT [ "cp", "-rL", "/usr/bin/", "/lib64/libidn.so.11", "/install/" ]
