@@ -1,4 +1,3 @@
-      * Sample COBOL program
        IDENTIFICATION DIVISION.
        PROGRAM-ID. hello.
 
