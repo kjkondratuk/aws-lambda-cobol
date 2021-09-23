@@ -5,6 +5,7 @@ out/lib*
 out/gnucobol
 layer/gnucobol/
 layer/lib*
-hello_world
+application
+json
 cobol-lambda.zip
 cobol-layer.zip

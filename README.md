@@ -32,4 +32,9 @@ make create-layer
 3. documentation about using layers in combination with custom runtimes is sparse and often skips over pieces needed to understand how they work together.  this is often times because many people do this with interpreted languages, which are markedly easier to implement
 4. If you don't want to incur the performance penalty of running an image on lambda, it becomes a pain to manage dependencies because the runtime has no package manager
 5. since we're building what is essentially a C application that needs to run on lambda, it has to be built on a binary compatible distribution with the correct version of GCC & all that, which forces me to use unfamiliar tooling
-6. 
+6. There are no good IDEs for this--the ones that do exist are difficult to configure
+
+
+## Things I learned
+1. It doesn't seem that this COBOL library has implemented standard methods of dealing with variable-length data from the command line (PIC S9(4) COMP-4 + PIC X(N))
+2. 

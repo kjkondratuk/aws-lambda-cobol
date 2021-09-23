@@ -1,5 +1,5 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. hello.
+       PROGRAM-ID. APPLICATION.
 
        ENVIRONMENT DIVISION.
        CONFIGURATION SECTION.
@@ -12,6 +12,7 @@
 
        DATA DIVISION.
        FILE SECTION.
+
        WORKING-STORAGE SECTION.
        01  WS-VAL-1 PIC X(100).
        01  WS-VAL-1-LEN PIC S9(04) COMP-5.
@@ -35,4 +36,3 @@
 
        STOP RUN.
        1000-MAIN-END.
-       

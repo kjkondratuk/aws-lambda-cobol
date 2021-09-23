@@ -1,6 +1,6 @@
 create-layer:
 	-rm ../cobol-layer.zip
-	-cp out/libcob* layer/
+	-cp out/lib* layer/
 	-cp -r out/gnucobol layer/
 	cd layer && zip -r ../cobol-layer.zip *
 
@@ -24,10 +24,17 @@ browse: build volumes
 
 all: run create-lambda create-layer
 
+compile:
+	cobc -xo $(ARGS) -lcob -lcjson
+
+run-compiled:
+	LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib" $(ARGS)
+
 clean:
-	-rm -rf out/*
+	-rm out/lib*
+	-rm -rf out/gnucobol
 	-rm -rf layer/gnucobol
-	-rm layer/libcob*
+	-rm layer/lib*
 	-rm cobol-lambda.zip
 	-rm cobol-layer.zip
 	docker container prune
