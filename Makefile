@@ -28,6 +28,8 @@ clean:
 	-rm -rf out/*
 	-rm -rf layer/gnucobol
 	-rm layer/libcob*
+	-rm cobol-lambda.zip
+	-rm cobol-layer.zip
 	docker container prune
 	docker image prune
 	docker volume prune

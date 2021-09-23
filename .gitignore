@@ -1,6 +1,8 @@
 gnucobol-*
 .ash-history
-out/
+out/application
+out/lib*
+out/gnucobol
 layer/gnucobol/
 layer/lib*
 hello_world
