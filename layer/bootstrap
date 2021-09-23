@@ -17,7 +17,10 @@ do
 
     # Execute the handler function from the script
     # RESPONSE=$($(echo "$_HANDLER" | cut -d. -f2) "$EVENT_DATA")
-    RESPONSE=$($(echo "$_HANDLER") "$EVENT_DATA")
+    pwd
+    ls -al
+    ls -al ../
+    RESPONSE=$(LD_LIBRARY_PATH=/opt $(echo "$_HANDLER") "$EVENT_DATA")
 
     # Send the response to Lambda runtime
     curl -v -sS -X POST "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$INVOCATION_ID/response" -d "$RESPONSE"

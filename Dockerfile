@@ -25,7 +25,11 @@ RUN yum update -y && yum install -y \
     libdb-devel \
     # db4-devel \
     # ncurses \
-    cjson-devel \
+    json-c \
+    json-c-devel \
+    libfastjson \
+    json-glib-devel \
+    json-glib \
     libxml2-devel \
     # should parameterize this URL
     && wget -O gnucobol.tar.xz "https://downloads.sourceforge.net/project/gnucobol/gnucobol/3.1/gnucobol-3.1.2.tar.xz?ts=gAAAAABhS6WRqAFpU7mDhXOt9IIMMtZuhz_ufmMEMVCcPRd3qKXPPYZi_Yt8E3-k4_yhDZfkYypg7Z6ctaMGmff294XqBo9MeQ%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fgnucobol%2Ffiles%2Fgnucobol%2F3.1%2Fgnucobol-3.1.2.tar.xz%2Fdownload" \
