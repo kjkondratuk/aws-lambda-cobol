@@ -1,5 +1,7 @@
 gnucobol-*
 
 .ash-history
-
+out/
 hello_world
+cobol-lambda.zip
+cobol-layer.zip
