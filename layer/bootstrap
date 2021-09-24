@@ -21,7 +21,7 @@ do
     # pwd
     # ls -al
     # ls -al ../
-    RESPONSE=$(LD_LIBRARY_PATH=/opt $(echo "$_HANDLER") "$EVENT_DATA")
+    RESPONSE=$(echo "$EVENT_DATA" | LD_LIBRARY_PATH=/opt $(echo "$_HANDLER"))
 
     # Send the response to Lambda runtime
     # curl -v -sS -X POST "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$INVOCATION_ID/response" -d "$RESPONSE"

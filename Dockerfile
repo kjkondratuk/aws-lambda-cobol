@@ -9,10 +9,12 @@ WORKDIR /opt
 
 RUN echo "Sources: $SOURCES"
 
-COPY ${PWD}/*.cob /opt/sources/
+# COPY ${PWD}/*.cob /opt/sources/
+VOLUME [ "/opt/sources" ]
 
 # Install necessary dependencies
 RUN yum update -y && yum install -y \
+    touch \
     git \
     wget \
     zip \
@@ -47,7 +49,10 @@ RUN wget -O gnucobol.tar.xz "https://downloads.sourceforge.net/project/gnucobol/
     && ./configure \
     && make \
     && make install \
-    && rm -rf gnucobol-${COBC_VERSION}
+    && rm -rf gnucobol-${COBC_VERSION} \
+    # Setup LD_LIBRARY_PATH for dynamic libraries we need access to
+    && echo '/usr/local/lib' >> /etc/ld.so.conf.d/gnucobol.conf \
+    && ldconfig
 
 VOLUME [ "/opt/bin" ]
 

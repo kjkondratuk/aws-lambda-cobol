@@ -8,23 +8,7 @@ If you want to make everything simply do
 ```
 make all
 ```
-
-### Lambda
-Executes a build of the application inside of a docker container with binary compatibility for AWS Lambda.  The second command will then
-```
-make run
-make create-lambda
-```
-
-### GNU COBOL Layer
-```
-make create-layer
-```
-
-## TODO
-1. Figure out how to enable JSON library
-2. Build/find a REST client to interact with other AWS and/or Fetch Services
-3. Add AWS CLI commands to automatically publish artifacts from makefile
+For other tasks, see the documentation in `Makefile`.
 
 ## Things that made this challenging
 1. gnucobol compiler is a challenging abstraction on top of GCC, which is complex to build with
@@ -36,5 +20,10 @@ make create-layer
 
 
 ## Things I learned
-1. It doesn't seem that this COBOL library has implemented standard methods of dealing with variable-length data from the command line (PIC S9(4) COMP-4 + PIC X(N))
-2. 
+1. C compilers are complicated
+2. Building with docker can be interesting
+    * Issue deploying old code because of caching with COPY vs VOLUME
+3. GNU COBOL is surprisingly well documented, but there is a lot of implied knowledge about C/GCC
+4. Making a custom runtime isn't really that complicated, and neither are layers for modern languages
+5. Layers can be a great way to side-load common dependencies to reduce deployable size
+6. Layers are somewhat limited - 5 layers/lambda & <250mb in size
