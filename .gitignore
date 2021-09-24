@@ -3,7 +3,7 @@ gnucobol-*
 out/application
 out/lib*
 out/gnucobol
-layer/gnucobol/
+layer/gnucobol
 layer/lib*
 application
 json
