@@ -61,7 +61,9 @@
                88 STATUS-OK                     VALUE 200.
                88 STATUS-BAD-REQUEST            VALUE 400.
                88 STATUS-SERVER-ERROR           VALUE 500.
-           05  WS-BODY                          PIC X(2048).
+           05  WS-RESULT                        PIC 9(4).
+
+       01  WS-TOTAL                             PIC Z(5) USAGE DISPLAY.
 
        LOCAL-STORAGE SECTION.
        LINKAGE SECTION.
@@ -114,15 +116,18 @@
            IF WS-JSON-ROOT EQUAL NULL THEN
                SET STATUS-BAD-REQUEST TO TRUE
            ELSE
+
+      * TODO: THE PROBLEM HERE IS THAT WE ARE
+
       *        Parse the first numeric value out of the request
                CALL STATIC "cJSON_GetObjectItem" USING
                    BY VALUE WS-JSON-ROOT
-                   BY REFERENCE z"n1"
+                   BY REFERENCE "n1"
                    RETURNING WS-JSON-FIELD
                END-CALL
                IF WS-JSON-FIELD NOT EQUAL NULL THEN
                    SET ADDRESS OF WS-JSON TO WS-JSON-FIELD
-                   DISPLAY "n1: " WS-VALUEINT
+                   DISPLAY "n1: " WS-VALUEINT UPON STDERR
                    MOVE WS-VALUEINT TO WS-N1
                ELSE
                    SET STATUS-BAD-REQUEST TO TRUE
@@ -132,12 +137,12 @@
 
                CALL STATIC "cJSON_GetObjectItem" USING
                    BY VALUE WS-JSON-ROOT
-                   BY REFERENCE z"n2"
+                   BY REFERENCE "n2"
                    RETURNING WS-JSON-FIELD
                END-CALL
                IF WS-JSON-FIELD NOT EQUAL NULL THEN
                    SET ADDRESS OF WS-JSON TO WS-JSON-FIELD
-                   DISPLAY "n2: " WS-VALUEINT
+                   DISPLAY "n2: " WS-VALUEINT UPON STDERR
                    MOVE WS-VALUEINT TO WS-N2
                ELSE
                    SET STATUS-BAD-REQUEST TO TRUE
@@ -149,10 +154,13 @@
       *     DISPLAY "ROOT: " WS-JSON-ROOT UPON STDERR.
       *     DISPLAY "VALUE AT ROOT: " FUNCTION TRIM(WS-JSON-BLOB)
       *         UPON STDERR.
+           ADD WS-N1 TO WS-N2 GIVING WS-TOTAL.
 
            PERFORM 2000-PREPARE-RESPONSE
               THRU 2000-PREPARE-RESPONSE-EXIT.
 
+           DISPLAY "Writing out: " FUNCTION TRIM(WS-RESPONSE-BODY)
+               UPON STDERR
            DISPLAY FUNCTION TRIM(WS-RESPONSE-BODY) UPON STDOUT.
 
        1000-MAIN-END. STOP RUN.
@@ -164,10 +172,10 @@
       * TO FORMAT THE RESPONSE PROPERLY FOR THE WEB.
       **************************************************************************
        2000-PREPARE-RESPONSE.
-
+           MOVE WS-TOTAL TO WS-RESULT.
            JSON GENERATE WS-RESPONSE-BODY FROM WS-RESPONSE
                NAME WS-STATUS-CODE 'statusCode'
-                    WS-BODY        'body'
+                    WS-RESULT        'result'
                ON EXCEPTION SET STATUS-SERVER-ERROR TO TRUE.
 
            MOVE WS-RESPONSE-BODY(16:) TO WS-RESPONSE-BODY.
