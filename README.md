@@ -1,4 +1,4 @@
-# cobol-docker
+# aws-lambda-cobol
 
 ## Building
 
